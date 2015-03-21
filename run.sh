@@ -26,9 +26,12 @@ debug "Java install: $whichjava"
 start-stop-daemon --start --quiet --pidfile /tmp/selenium.pid --make-pidfile --background --exec /usr/bin/java -- -jar "${CACHE_DIR}/${JAR_FILE}"
 debug "Starting up selenium with ${CACHE_DIR}/${JAR_FILE}."
 
-until [[ nc -vz localhost 4444 || $count -gt 60 ]]; do
+while ! nc -vz localhost 4441; do
     count=$((count+1))
     debug "Selenium not started yet..."
+    if [[ count -gt 60 ]]; then
+        break
+    fi
     sleep 1
 done
 
