@@ -1,5 +1,5 @@
 name: selenium-install
-version: 0.0.8
+version: 0.0.9
 description: Installs and starts Selenium standalone server.
 type: build
 keywords:
