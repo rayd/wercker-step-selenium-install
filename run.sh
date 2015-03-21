@@ -23,7 +23,7 @@ whichjava=`which java`
 debug "Java install: $whichjava"
 
 # Start Selenium and wait for port 4444 to become available
-start-stop-daemon --start --quiet --pidfile /tmp/selenium.pid --make-pidfile --background --exec java -jar "${CACHE_DIR}/${JAR_FILE}"
+start-stop-daemon --start --quiet --pidfile /tmp/selenium.pid --make-pidfile --background --exec /usr/bin/java -- -jar "${CACHE_DIR}/${JAR_FILE}"
 debug "Starting up selenium with ${CACHE_DIR}/${JAR_FILE}."
 count=0
 nc -vz localhost 4444
