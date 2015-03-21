@@ -2,9 +2,9 @@
 
 A wercker build step that installs and runs selenium server
 
-## Options
-
-This step has no options.
+## Required Options
+jar-file-url
+jar-file-version
 
 ## Contribute
 
