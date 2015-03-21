@@ -25,15 +25,15 @@ debug "Java install: $whichjava"
 # Start Selenium and wait for port 4444 to become available
 start-stop-daemon --start --quiet --pidfile /tmp/selenium.pid --make-pidfile --background --exec /usr/bin/java -- -jar "${CACHE_DIR}/${JAR_FILE}"
 debug "Starting up selenium with ${CACHE_DIR}/${JAR_FILE}."
-count=0
-nc -vz localhost 4444
-res="$?"
-while [[ "$res" != "0" && $count -lt 60 ]]; do
+
+until [[ nc -vz localhost 4444 || $count -gt 60 ]]; do
+    count=$((count+1))
     debug "Selenium not started yet..."
     sleep 1
-    count=$((count+1))
-    nc -vz localhost 4444
-    res="$?"
 done
 
-success "Selenium started up successfully."
+if [[ $count -gt 60 ]]; then
+    fail "Selenium did not start up."
+else
+    success "Selenium started up successfully."
+fi
