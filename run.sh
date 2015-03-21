@@ -21,13 +21,16 @@ fi
 
 # Start Selenium and wait for port 4444 to become available
 nohup java -jar "${CACHE_DIR}/${JAR_FILE}"
+debug "Starting up selenium with ${CACHE_DIR}/${JAR_FILE}."
 count=0
 nc -vz localhost 4444
 res="$?"
 while [[ "$res" != "0" && $count -lt 60 ]]; do
-    debug "Selenium not started yet."
+    debug "Selenium not started yet..."
     sleep 1
     count=$((count+1))
     nc -vz localhost 4444
     res="$?"
 done
+
+success "Selenium started up successfully."
